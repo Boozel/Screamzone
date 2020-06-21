@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MicInput: MonoBehaviour {
      
@@ -40,6 +41,22 @@ public class MicInput: MonoBehaviour {
             }
             return levelMax;
         }
+        float  LevelAvg()
+        {
+            float levelAvg = 0;
+            float[] waveData = new float[_sampleWindow];
+            int micPosition = Microphone.GetPosition(null)-(_sampleWindow+1); // null means the first microphone
+            if (micPosition < 0) return 0;
+            _clipRecord.GetData(waveData, micPosition);
+            // Getting a peak on the last 128 samples
+            for (int i = 0; i < _sampleWindow; i++) 
+            {
+                float wavePeak = waveData[i] * waveData[i];
+                levelAvg += wavePeak;
+            }
+            levelAvg = levelAvg / _sampleWindow;
+            return levelAvg;
+        }
      
      
      
@@ -47,7 +64,7 @@ public class MicInput: MonoBehaviour {
         {
             // levelMax equals to the highest normalized value power 2, a small number because < 1
             // pass the value to a static var so we can access it from anywhere
-            MicLoudness = LevelMax ();
+            MicLoudness = Mathf.Round(LevelAvg()*44100f) / 44100f;
         }
      
         bool _isInitialized;

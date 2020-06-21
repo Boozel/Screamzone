@@ -15,6 +15,6 @@ public class DebugText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textMesh.SetText("Volume: {0:3}", MicInput.MicLoudness);
+        textMesh.SetText(MicInput.MicLoudness.ToString("n"));
     }
 }
