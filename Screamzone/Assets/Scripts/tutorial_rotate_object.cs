@@ -15,7 +15,7 @@ public class tutorial_rotate_object : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float rotate = MicInput.MicLoudness * 2;
+        float rotate = MicInput.MicLoudness * 3;
 
         buildupRotation += rotate;
 
@@ -24,16 +24,22 @@ public class tutorial_rotate_object : MonoBehaviour
             buildupRotation = 90;
         }
 
-        if(rotate < 0.01)
+        if(buildupRotation < 90)
         {
-            gameObject.transform.eulerAngles = new Vector3(0, 0, baseRotation);
-            buildupRotation = 0;
+            if(rotate < 0.01)
+            {
+                gameObject.transform.eulerAngles = new Vector3(0, 0, baseRotation);
+                buildupRotation = 0;
+            }
+            else
+            {
+                gameObject.transform.eulerAngles = new Vector3(0, 0, baseRotation + buildupRotation);
+            }
         }
         else
         {
-            gameObject.transform.eulerAngles = new Vector3(0, 0, baseRotation + buildupRotation);
+            //Sometimes wouldn't rotate all the way flat
+            gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
         }
-
-        Debug.Log(rotate);
     }
 }
