@@ -15,7 +15,7 @@ public class tutorial_rotate_object : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float rotate = MicInput.MicLoudness * 3;
+        float rotate = MicInput.MicLoudness;
 
         buildupRotation += rotate;
 
