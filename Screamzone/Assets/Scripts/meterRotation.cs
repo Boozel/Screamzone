@@ -28,6 +28,5 @@ public class meterRotation : MonoBehaviour
         */
         float rotate = (MicInput.MicLoudness * 180) + 180;
         gameObject.transform.eulerAngles = new Vector3(-rotate, -90, 90);
-        Debug.Log(MicInput.MicLoudness);
     }
 }

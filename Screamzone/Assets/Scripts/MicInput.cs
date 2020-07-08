@@ -6,6 +6,7 @@ using System;
 public class MicInput: MonoBehaviour {
      
         public static float MicLoudness;
+        public static float PeakMicLoudness;
  
         private string _device;
      
@@ -65,6 +66,7 @@ public class MicInput: MonoBehaviour {
             // levelMax equals to the highest normalized value power 2, a small number because < 1
             // pass the value to a static var so we can access it from anywhere
             MicLoudness = (Mathf.Round(LevelAvg()*44100f) / 44100f) * 2;
+            PeakMicLoudness = (Mathf.Round(LevelMax()*44100f) / 44100f) * 2;
         }
      
         bool _isInitialized;
